@@ -6,35 +6,40 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-private const val TAB_POS = "TAB_POS"
+
+private const val TAB_CONTENT = "TAB_CONTENT"
 
 class CafeDetailFragment : Fragment() {
-    private var pos: Int = 0
+    private var content: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            pos = it.getInt(TAB_POS, 0)
+            content = it.getString(TAB_CONTENT)
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_cafe_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val textView = view.findViewById<TextView>(R.id.content_description)
+        textView.text = content ?: "No description"
 
-        // Use the position to load correct resource (fall back to index 0 safely)
-        val index = pos.coerceIn(0, TABS_CONTENT.size - 1)
-        val content = requireContext().getString(TABS_CONTENT[index])
-        textView.text = content
-
-        android.util.Log.d("CafeDetailFragment", "Loaded pos=$pos content length=${content.length}")
+        // Debug log biar yakin fragment muncul
+        android.util.Log.d("CafeDetailFragment", "Loaded content: $content")
     }
 
     companion object {
-        fun newInstance(position: Int) =
+        fun newInstance(content: String) =
             CafeDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(TAB_POS, position)
+                    putString(TAB_CONTENT, content)
                 }
             }
     }

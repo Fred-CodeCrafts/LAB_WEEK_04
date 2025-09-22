@@ -27,7 +27,7 @@ class CafeAdapter(
     override fun getItemCount(): Int = TABS_FIXED.size
 
     override fun createFragment(position: Int): Fragment {
-        return CafeDetailFragment.newInstance(position)
+        val content = context.getString(TABS_CONTENT[position])
+        return CafeDetailFragment.newInstance(content)
     }
-
 }
