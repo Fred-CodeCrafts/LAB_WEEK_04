@@ -34,4 +34,11 @@
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites" />
 
+    <!-- ✅ Cafe -->
+    <fragment
+        android:id="@+id/cafeFragment"
+        android:name="com.fredcodecrafts.lab_week_04.CafeFragment"
+        android:label="Cafe"
+        tools:layout="@layout/fragment_cafe" />
+
 </navigation>
